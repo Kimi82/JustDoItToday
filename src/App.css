@@ -1,3 +1,10 @@
 *, *::before, *::after{
   margin:0; 
 }
+
+.app__toDo{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
