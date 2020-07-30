@@ -6,6 +6,7 @@ import firebase from "firebase"
 export default function ToDoList({user}) {
     const [newTaskValue, setTask] = useState("")
     const [tasks, setTasks] = useState([])
+    const [doneTasks, setTaskDone] = useState(0)
 
 
     const today = new Date()
@@ -17,7 +18,8 @@ export default function ToDoList({user}) {
          e.preventDefault();
          db.collection(user.displayName).doc("ToDoList").collection(todayDate).add({
              text: newTaskValue,
-             timestamp: firebase.firestore.FieldValue.serverTimestamp()
+             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+             isDone: false
          })
          setTask('');
      }
@@ -33,20 +35,33 @@ export default function ToDoList({user}) {
                 .collection(todayDate) //todayDate
                 .orderBy("timestamp", "desc")
                 .onSnapshot((snapshot) =>{
-                    setTasks(snapshot.docs.map((doc) => doc.data()));
-                });
-            }
+                    setTasks(snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        task: doc.data()
+                        })));
+                        setTaskDone(snapshot.docs.map((doc) => doc.data.isDone ? doneTasks+100 : doneTasks+1));                        
+                      
+                      }) 
+            }console.log(doneTasks)
        
     }, [user])
+
+    const setAsDone = (e) => {
+        db.collection(user.displayName).doc("ToDoList").collection(todayDate).doc(e.target.id)
+        .update({isDone: true})
+    }
     
+
     
     return (
     <div className="toDoList__wrapper">
     <div className="toDoList__list">
             <ul>
             {tasks.map((task) => (
-                    <p>
-                        <li>{task.text}</li> 
+                    <p> { task.task.isDone ?
+                        <li className="toDoList__item" value={task.task.text} id={task.id} onClick={setAsDone}>{task.task.text}</li>:
+                        <li value={task.task.text} id={task.id} onClick={setAsDone}>{task.task.text}</li> 
+                        }
                     </p>
                 )
                 
