@@ -8,6 +8,7 @@ export default function ToDoList({user}) {
     const [tasks, setTasks] = useState([])
     const [doneTasks, setAsDone] = useState(0)
     const [doneTaskPercent, setPercent] = useState(1)
+    const [chartData, setChartData] = useState([])
 
     const today = new Date()
     const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0'); 
@@ -16,14 +17,15 @@ export default function ToDoList({user}) {
 
     const GetDates = () => {
       var aryDates = [];
-  
+      var dbDates = [];
       for (var i = -6; i <= 0; i++) {
           var currentDate = new Date();
           currentDate.setDate(startDate.getDate() + i);
           aryDates.push(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate());
+          dbDates.push(String(currentDate.getDate()).padStart(2, '0') + "_" + String(currentDate.getMonth() + 1).padStart(2, '0'));
       }
   
-      return aryDates;
+      return [aryDates, dbDates];
   }
 
   useEffect(() =>{
@@ -47,7 +49,8 @@ export default function ToDoList({user}) {
   }
   
   var startDate = today; 
-  var aryDates = GetDates(); 
+  const dates = GetDates()
+  var aryDates = dates[0]; 
 
 //function to return today + 6 past day
 const state = {
@@ -64,8 +67,28 @@ const state = {
 }
     
     
+useEffect(() => {  //function to download task from today.
+  const dbDates = dates[1]
+   for(let i=0; i<=dbDates.length-1; i++){
+      db 
+          .collection("Kimi")
+          .doc("ToDoList")
+          .collection(dbDates[i]) //todayDate
+          .orderBy("timestamp", "desc")
+          .onSnapshot((snapshot) =>{
+            setChartData(snapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data()
+                })));
+                }) 
+      }}, [user])  //need to change IT!!!
+
+      function testFunc(){
+        console.log(chartData)
+      }
+
     return (
-    <div className="toDoChart__wrapper">
+    <div onMouseOver={testFunc} className="toDoChart__wrapper">
  <div>
         <Bar
           data={state}

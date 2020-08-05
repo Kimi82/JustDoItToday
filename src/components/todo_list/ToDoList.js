@@ -3,7 +3,7 @@ import './ToDoList.css'
 import { db } from '../../firebase.js'
 import firebase from "firebase"
 
-export default function ToDoList({user}, {tasksP}, {doneTasksP} ) {
+export default function ToDoList({user}) {
      const [newTaskValue, setTask] = useState("");
      const [tasks, setTasks] = useState([]);
      const [doneTasks, setTaskDone] = useState()
@@ -30,50 +30,51 @@ export default function ToDoList({user}, {tasksP}, {doneTasksP} ) {
      
 
     
-    //  useEffect(() => {  //function to download task from today.
-    //     if(user!=undefined){   
-    //         db 
-    //             .collection(user.displayName)
-    //             .doc("ToDoList")
-    //             .collection(todayDate) //todayDate
-    //             .orderBy("timestamp", "desc")
-    //             .onSnapshot((snapshot) =>{
-    //                 setTasks(snapshot.docs.map(doc => ({
-    //                     id: doc.id,
-    //                     task: doc.data()
-    //                     })));
-    //                     }) 
-    //         } 
+     useEffect(() => {  //function to download task from today.
+        if(user!=undefined){   
+            db 
+                .collection(user.displayName)
+                .doc("ToDoList")
+                .collection(todayDate) //todayDate
+                .orderBy("timestamp", "desc")
+                .onSnapshot((snapshot) =>{
+                    setTasks(snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        task: doc.data()
+                        })));
+                        }) 
+            } 
        
-    // }, [user])
+    }, [user])
 
 
-    // const useIsMount = () => { //function to return, than first render or no
-    //     const isMountRef = useRef(true);
-    //     useEffect(() => {
-    //       isMountRef.current = false;
-    //     }, []);
-    //     return isMountRef.current;
-    //   };
+    const useIsMount = () => { //function to return, than first render or no
+        const isMountRef = useRef(true);
+        useEffect(() => {
+          isMountRef.current = false;
+        }, []);
+        return isMountRef.current;
+      };
 
     
-    //     const isMount = useIsMount();
+        const isMount = useIsMount();
       
-    //     useEffect(() => {
-    //       if (!isMount && tasks.length>=1) {
-    //         let howManyTaskIsDone = 0;
-    //         for(let i =0; i<=tasks.length-1; i++){
-    //              if(tasks[i].task.isDone == true){
-    //                 howManyTaskIsDone+=1
-    //                 setTaskDone(howManyTaskIsDone);
-    //                 }
-    //         } 
-    //       }
-    //     }, [tasks]);
+        useEffect(() => {
+          if (!isMount && tasks.length>=1) {
+            let howManyTaskIsDone = 0;
+            for(let i =0; i<=tasks.length-1; i++){
+                 if(tasks[i].task.isDone == true){
+                    howManyTaskIsDone+=1
+                    setTaskDone(howManyTaskIsDone);
+                    }
+            } 
+          }
+        }, [tasks]);
       
 
 
-          
+    
+
         
 
     const setAsDone = (e) => {

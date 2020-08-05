@@ -44,8 +44,7 @@ function App() {
   const [openSignIn, setOpenSignIn] = useState('')
   const [username, setUsername] = useState('');
 
-  const [tasks, setTasks] = useState([])
-  const [doneTasks, setTaskDone] = useState(0)
+ 
 
   const today = new Date()
   const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0');  
@@ -85,47 +84,7 @@ function App() {
     setOpenSignIn(false)
   }
 
-  useEffect(() => {  //function to download task from today.
-    if(user!=undefined){   
-        db 
-            .collection(user.displayName)
-            .doc("ToDoList")
-            .collection(todayDate) //todayDate
-            .orderBy("timestamp", "desc")
-            .onSnapshot((snapshot) =>{
-                setTasks(snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    task: doc.data()
-                    })));
-                    }) 
-        } 
-   
-}, [user])
-
-
-const useIsMount = () => { //function to return, than first render or no
-  const isMountRef = useRef(true);
-  useEffect(() => {
-    isMountRef.current = false;
-  }, []);
-  return isMountRef.current;
-};
-
-
-  const isMount = useIsMount();
-
-  useEffect(() => {
-    if (!isMount && tasks.length>=1) {
-      let howManyTaskIsDone = 0;
-      for(let i =0; i<=tasks.length-1; i++){
-           if(tasks[i].task.isDone === true){
-              howManyTaskIsDone+=1
-              setTaskDone(howManyTaskIsDone);
-              }
-      } 
-    }
-  }, [tasks]);
-
+  
 
 
  return (
@@ -206,8 +165,8 @@ const useIsMount = () => { //function to return, than first render or no
 
  <div className="app__toDo">
 
- <ToDoChart tasksP={tasks} doneTasksP={doneTasks}/>
- <ToDoList user={user} tasksP={tasks} doneTasksP={doneTasks} />
+ <ToDoChart user={user}/>
+ <ToDoList user={user}/>
 
  </div>
  </div>
