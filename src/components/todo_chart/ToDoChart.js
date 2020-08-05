@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './ToDoChart.css'
 import { db } from '../../firebase.js'
 import firebase from "firebase"
@@ -6,9 +6,10 @@ import {Bar} from 'react-chartjs-2';
 export default function ToDoList({user}) {
     
     const [tasks, setTasks] = useState([])
-    const [doneTasks, setAsDone] = useState(0)
+    const [doneTasks, setTaskDone] = useState()
     const [doneTaskPercent, setPercent] = useState(1)
     const [chartData, setChartData] = useState([])
+    
 
     const today = new Date()
     const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0'); 
@@ -52,21 +53,24 @@ export default function ToDoList({user}) {
   const dates = GetDates()
   var aryDates = dates[0]; 
 
-//function to return today + 6 past day
-const state = {
-  labels: [aryDates[0], aryDates[1], aryDates[2],aryDates[3], aryDates[4], aryDates[5], "TODAY"],
-  datasets: [
-    {
-      label: 'Rainfall',
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [[0,100], [0,60], [0,40], [0,30], [0,70], [10,60]] 
-    }
-  ]
-}
-    
-    
+  useEffect(() => {  //function to download task from today.
+    if(user!=undefined){   
+        db 
+            .collection(user.displayName)
+            .doc("ToDoList")
+            .collection(todayDate) //todayDate
+            .orderBy("timestamp", "desc")
+            .onSnapshot((snapshot) =>{
+                setTasks(snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    task: doc.data()
+                    })));
+                    }) 
+        } 
+   
+}, [user])
+
+
 useEffect(() => {  //function to download task from today.
   const dbDates = dates[1]
    for(let i=0; i<=dbDates.length-1; i++){
@@ -76,14 +80,64 @@ useEffect(() => {  //function to download task from today.
           .collection(dbDates[i]) //todayDate
           .orderBy("timestamp", "desc")
           .onSnapshot((snapshot) =>{
-            setChartData(snapshot.docs.map(doc => ({
-                id: doc.id,
-                data: doc.data()
-                })));
-                }) 
-      }}, [user])  //need to change IT!!!
+            // setChartData((snapshot.docs.map(doc => ({
+            //     id: dbDates[i],
+            //     data: doc.data()
+            //     }))));
+            //     })
+            setChartData.push(snapshot.docs.map(doc =>({
+              data:dbDates[i]
+            }))))
+          }) 
+      }, [user])  //need to change IT!!!
 
-      function testFunc(){
+
+
+const useIsMount = () => { //function to return, than first render or no
+    const isMountRef = useRef(true);
+    useEffect(() => {
+      isMountRef.current = false;
+    }, []);
+    return isMountRef.current;
+  };
+
+
+    const isMount = useIsMount();
+  
+    useEffect(() => {
+      if (!isMount && tasks.length>=1) {
+        let howManyTaskIsDone = 0;
+        for(let i =0; i<=tasks.length-1; i++){
+             if(tasks[i].task.isDone == true){
+                howManyTaskIsDone+=1
+                setTaskDone(howManyTaskIsDone);
+                }
+        } 
+      }
+    }, [tasks]);
+
+
+
+
+  //function to return today + 6 past day
+const state = {
+  labels: [aryDates[0], aryDates[1], aryDates[2],aryDates[3], aryDates[4], aryDates[5], "TODAY"],
+  datasets: [
+    {
+      label: 'Rainfall',
+      backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: 'rgba(0,0,0,1)',
+      borderWidth: 2,
+      data: [[0,100], [0,60], [0,40], [0,30], [0,70], [0,60], [0,doneTaskPercent]] 
+    }
+  ]
+}
+    
+    
+
+
+  
+  function testFunc(){
         console.log(chartData)
       }
 
