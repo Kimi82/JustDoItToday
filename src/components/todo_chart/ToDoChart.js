@@ -6,7 +6,7 @@ import {Bar} from 'react-chartjs-2';
 export default function ToDoList({user}) {
     
     const [tasks, setTasks] = useState([])
-    const [doneTasks, setTaskDone] = useState()
+    const [doneTasks, setTaskDone] = useState(0)
     const [doneTaskPercent, setPercent] = useState(1)
     const [chartData, setChartData] = useState([])
     
@@ -70,26 +70,23 @@ export default function ToDoList({user}) {
    
 }, [user])
 
-
+const chartArray = []
 useEffect(() => {  //function to download task from today.
   const dbDates = dates[1]
-   for(let i=0; i<=dbDates.length-1; i++){
+  if(user!=undefined){ 
+    for(let i=0; i<=dbDates.length-2; i++){
+      console.log(dbDates[i])
       db 
-          .collection("Kimi")
+          .collection(user.displayName)
           .doc("ToDoList")
           .collection(dbDates[i]) //todayDate
           .orderBy("timestamp", "desc")
           .onSnapshot((snapshot) =>{
-            // setChartData((snapshot.docs.map(doc => ({
-            //     id: dbDates[i],
-            //     data: doc.data()
-            //     }))));
-            //     })
-            setChartData.push(snapshot.docs.map(doc =>({
-              data:dbDates[i]
-            }))))
-          }) 
-      }, [user])  //need to change IT!!!
+            ((snapshot.docs.map(doc => {
+              chartArray.push({id:doc.id, data: doc.data()})
+              setChartData(chartArray)
+              })));
+        })}}}, [tasks])  //need to change IT!!!
 
 
 

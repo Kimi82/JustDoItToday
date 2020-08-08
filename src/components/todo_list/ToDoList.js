@@ -23,9 +23,7 @@ export default function ToDoList({user}) {
          setTask('');
      }
 
-     const onHoverTest = (e) =>{ 
-        //console.log(tasksP)
-     }
+
 
      
 
@@ -101,7 +99,7 @@ export default function ToDoList({user}) {
         
         <div className="toDoList__addTask">
             <input type="text" value={newTaskValue} onChange={e => setTask(e.target.value)}></input>
-            <button onMouseEnter={onHoverTest} onClick={addTask}>Add Task</button>
+            <button onClick={addTask}>Add Task</button>
     </div>
     </div>
     </div>
