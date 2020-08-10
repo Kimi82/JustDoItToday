@@ -25,6 +25,7 @@ export default function ToDoList({user}) {
           aryDates.push(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate());
           dbDates.push(String(currentDate.getDate()).padStart(2, '0') + "_" + String(currentDate.getMonth() + 1).padStart(2, '0'));
       }
+      
   
       return [aryDates, dbDates];
   }
@@ -51,7 +52,7 @@ export default function ToDoList({user}) {
   
   var startDate = today; 
   const dates = GetDates()
-  var aryDates = dates[0]; 
+  var aryDates = dates[0].reverse(); 
 
   useEffect(() => {  //function to download task from today.
     if(user!=undefined){   
@@ -69,13 +70,12 @@ export default function ToDoList({user}) {
         } 
    
 }, [user])
+const dbDates = dates[1]
 
 const chartArray = []
 useEffect(() => {  //function to download task from today.
-  const dbDates = dates[1]
   if(user!=undefined){ 
-    for(let i=0; i<=dbDates.length-2; i++){
-      console.log(dbDates[i])
+    for(let i=0; i<=dbDates.length-1; i++){
       db 
           .collection(user.displayName)
           .doc("ToDoList")
@@ -116,30 +116,107 @@ const useIsMount = () => { //function to return, than first render or no
 
 
 
-  //function to return today + 6 past day
-const state = {
-  labels: [aryDates[0], aryDates[1], aryDates[2],aryDates[3], aryDates[4], aryDates[5], "TODAY"],
-  datasets: [
-    {
-      label: 'Rainfall',
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(0,0,0,1)',
-      borderWidth: 2,
-      data: [[0,100], [0,60], [0,40], [0,30], [0,70], [0,60], [0,doneTaskPercent]] 
-    }
-  ]
-}
+
     
-    
+const chartFinalArray = [
+  {
+    id: dbDates[0],
+    allTasks: 0,
+    doneTasks:0
+  },
+  {
+    id: dbDates[1],
+    allTasks: 0,
+    doneTasks:0
+  },
+  {
+    id: dbDates[2],
+    allTasks: 0,
+    doneTasks:0
+  },
+  {
+    id: dbDates[3],
+    allTasks: 0,
+    doneTasks:0
+  },
+  {
+    id: dbDates[4],
+    allTasks: 0,
+    doneTasks:0
+  },
+  {
+    id: dbDates[5],
+    allTasks: 0,
+    doneTasks:0
+  }
+]
+  
+  useEffect(() =>{
+    console.log(chartData)
+    for(let i=0; i<=chartData.length-1; i++){
+        let timestamp = new Date(chartData[i]["data"]["timestamp"]["seconds"]*1000)
+        let date = String(timestamp.getDate()).padStart(2, '0') + "_" + String(timestamp.getMonth() + 1).padStart(2, '0');
+        console.log("2")
+      switch(date){
+          case dbDates[0]:
+            if (chartData[i]['data']['isDone'] == true) chartFinalArray[0]['doneTasks'] +=1
+            console.log()
+            chartFinalArray[0]['allTasks']+=1
+            break;
+          case dbDates[1]:
+            if (chartData[i]['data']['isDone'] == true) chartFinalArray[1]['doneTasks'] +=1
+            chartFinalArray[1]['allTasks']+=1
+            break;
+          case dbDates[2]:
+            if (chartData[i]['data']['isDone'] == true) chartFinalArray[2]['doneTasks'] +=1
+            chartFinalArray[2]['allTasks']+=1
+            break;
+          case dbDates[3]:
+            if (chartData[i]['data']['isDone'] == true) chartFinalArray[3]['doneTasks'] +=1
+            chartFinalArray[3]['allTasks']+=1
+            break;
+          case dbDates[4]:
+            if (chartData[i]['data']['isDone'] == true) chartFinalArray[4]['doneTasks'] +=1
+            chartFinalArray[4]['allTasks']+=1
+            break;
+          case dbDates[5]:
+            if (chartData[i]['data']['isDone'] == true) chartFinalArray[4]['doneTasks'] +=1
+            chartFinalArray[4]['allTasks']+=1
+            break;
+        }
+        }
+        console.log("chartFinalArray")
+      }, [])
 
 
   
-  function testFunc(){
-        console.log(chartData)
+      const state = {
+        labels: [aryDates[0], aryDates[1], aryDates[2],aryDates[3], aryDates[4], aryDates[5], "TODAY"],
+        datasets: [
+          {
+            label: 'Rainfall',
+            backgroundColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 2,
+            data: [
+            //  [0,Math.round(chartFinalArray[0]["doneTasks"])],
+            //  [0,Math.round(chartFinalArray[1]["doneTasks"])],
+            //  [0,Math.round(chartFinalArray[2]["doneTasks"])],
+            //  [0,Math.round(chartFinalArray[3]["doneTasks"])],
+            //  [0,Math.round(chartFinalArray[4]["doneTasks"])],
+            //  [0,chartFinalArray[5]["doneTasks"]],
+             [0,Math.round(doneTaskPercent)]] 
+          }
+        ]
       }
 
+
+      function chuj(){
+        console.log(chartData)
+      }
+    
     return (
-    <div onMouseOver={testFunc} className="toDoChart__wrapper">
+    <div onMouseEnter={chuj} className="toDoChart__wrapper">
  <div>
         <Bar
           data={state}
