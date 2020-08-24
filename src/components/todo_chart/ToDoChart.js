@@ -113,7 +113,8 @@ const dbDates = dates[1].reverse()
 
 const chartArray = []
 useEffect(() => {  //function to download task from today.
-  if(user!=undefined){ 
+  if(user!=undefined){
+    setChartDataExist(false) 
     for(let i=0; i<=dbDates.length-1; i++){
       db 
           .collection(user.displayName)
@@ -249,14 +250,14 @@ const useIsMount = () => { //function to return, than first render or no
             
           ]
         }
+      
       return state;
     } 
-    function test(){
-    console.log(hoverTest())
-    }
+    
+          
     
     return (
-    <div onMouseEnter={test} className="toDoChart__wrapper">
+    <div className="toDoChart__wrapper">
  <div>
         {
           chartDataExist==true 
