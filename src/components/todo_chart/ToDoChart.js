@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef  } from 'react'
 import './ToDoChart.css'
 import { db } from '../../firebase.js'
-import firebase from "firebase"
 import {Bar} from 'react-chartjs-2';
 export default function ToDoList({user}) {
     
@@ -9,8 +8,7 @@ export default function ToDoList({user}) {
     const [doneTasks, setTaskDone] = useState(0)
     const [doneTaskPercent, setPercent] = useState(1)
     const [chartData, setChartData] = useState([])
-    let [chartDataExist, setChartDataExist] = useState(false)
-    const [chartDataStatic, setChartDataStatic] = useState([])
+    const [chartDataExist, setChartDataExist] = useState(false)
 
     const today = new Date()
     const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0'); 
@@ -145,8 +143,6 @@ const useIsMount = () => { //function to return, than first render or no
     useEffect(() => {
       if (!isMount && tasks.length>=1) {
         let howManyTaskIsDone = 0;
-        const staticData = createChartObject()
-        setChartDataStatic(staticData)
 
         for(let i =0; i<=tasks.length-1; i++){
              if(tasks[i].task.isDone == true){
@@ -158,92 +154,81 @@ const useIsMount = () => { //function to return, than first render or no
       }
     }, [tasks]);
 
-    
-
-
-
-    const chartFinalArray = [
-      {
-        id: dbDates[0],
-        allTasks: 0,
-        doneTasks:0
-      },
-      {
-        id: dbDates[1],
-        allTasks: 0,
-        doneTasks:0
-      },
-      {
-        id: dbDates[2],
-        allTasks: 0,
-        doneTasks:0
-      },
-      {
-        id: dbDates[3],
-        allTasks: 0,
-        doneTasks:0
-      },
-      {
-        id: dbDates[4],
-        allTasks: 0,
-        doneTasks:0
-      },
-      {
-        id: dbDates[5],
-        allTasks: 0,
-        doneTasks:0
-      },
-      {
-        id: dbDates[6],
-        allTasks: 0,
-        doneTasks:0
-      }
-    ]
-   const getChartData = () =>{
-
-
-    for(let i=0; i<=chartData.length-1; i++){
-      if(chartData[i]["data"]["timestamp"]){
-        var timestamp = new Date(chartData[i]["data"]["timestamp"]["seconds"]*1000)
-        var date = String(timestamp.getDate()).padStart(2, '0') + "_" + String(timestamp.getMonth() + 1).padStart(2, '0');
-      }
-      switch(date){
-          // case dbDates[0]:
-          //   if (chartData[i]['data']['isDone'] == true) chartFinalArray[0]['doneTasks'] +=1
-          //   chartFinalArray[0]['allTasks']+=1
-          //   break;
-          case dbDates[1]:
-            if (chartData[i]['data']['isDone'] == true) chartFinalArray[1]['doneTasks'] +=1
-            chartFinalArray[1]['allTasks']+=1
-            break;
-          case dbDates[2]:
-            if (chartData[i]['data']['isDone'] == true) chartFinalArray[2]['doneTasks'] +=1
-            chartFinalArray[2]['allTasks']+=1
-            break;
-          case dbDates[3]:
-            if (chartData[i]['data']['isDone'] == true) chartFinalArray[3]['doneTasks'] +=1
-            chartFinalArray[3]['allTasks']+=1
-            break;
-          case dbDates[4]:
-            if (chartData[i]['data']['isDone'] == true) chartFinalArray[4]['doneTasks'] +=1
-            chartFinalArray[4]['allTasks']+=1
-            break;
-          case dbDates[5]:
-            if (chartData[i]['data']['isDone'] == true) chartFinalArray[5]['doneTasks'] +=1
-            chartFinalArray[5]['allTasks']+=1
-            break;
-          case dbDates[6]:
-            if (chartData[i]['data']['isDone'] == true) chartFinalArray[6]['doneTasks'] +=1
-            chartFinalArray[6]['allTasks']+=1
-            break;
-        } setChartDataExist(true)
-        
-        }
-      }
-
       function hoverTest(){
         
-        getChartData()
+        var chartFinalArray = [
+          {
+            id: dbDates[0],
+            allTasks: 0,
+            doneTasks:0
+          },
+          {
+            id: dbDates[1],
+            allTasks: 0,
+            doneTasks: 0
+          },
+          {
+            id: dbDates[2],
+            allTasks: 0,
+            doneTasks: 0
+          },
+          {
+            id: dbDates[3],
+            allTasks: 0,
+            doneTasks: 0
+          },
+          {
+            id: dbDates[4],
+            allTasks: 0,
+            doneTasks: 0
+          },
+          {
+            id: dbDates[5],
+            allTasks: 0,
+            doneTasks: 0
+          },
+          {
+            id: dbDates[6],
+            allTasks: 0,
+            doneTasks: 0
+          }
+        ]
+        for(let i=0; i<=chartData.length-1; i++){
+          if(chartData[i]["data"]["timestamp"]){
+            var timestamp = new Date(chartData[i]["data"]["timestamp"]["seconds"]*1000)
+            var date = String(timestamp.getDate()).padStart(2, '0') + "_" + String(timestamp.getMonth() + 1).padStart(2, '0');
+          }
+          switch(date){
+              case dbDates[1]:
+                if (chartData[i]['data']['isDone'] == true) chartFinalArray[1]['doneTasks'] +=1
+                chartFinalArray[1]['allTasks']+=1
+                break;
+              case dbDates[2]:
+                if (chartData[i]['data']['isDone'] == true) chartFinalArray[2]['doneTasks'] +=1
+                chartFinalArray[2]['allTasks']+=1
+                break;
+              case dbDates[3]:
+                if (chartData[i]['data']['isDone'] == true) chartFinalArray[3]['doneTasks'] +=1
+                chartFinalArray[3]['allTasks']+=1
+                break;
+              case dbDates[4]:
+                if (chartData[i]['data']['isDone'] == true) chartFinalArray[4]['doneTasks'] +=1
+                chartFinalArray[4]['allTasks']+=1
+                break;
+              case dbDates[5]:
+                if (chartData[i]['data']['isDone'] == true) chartFinalArray[5]['doneTasks'] +=1
+                chartFinalArray[5]['allTasks']+=1
+                break;
+              case dbDates[6]:
+                if (chartData[i]['data']['isDone'] == true) chartFinalArray[6]['doneTasks'] +=1
+                chartFinalArray[6]['allTasks']+=1
+                break;
+            } setChartDataExist(true)
+            
+            } 
+
+
+        
         const state = {
           labels: [aryDates[0], aryDates[1], aryDates[2],aryDates[3], aryDates[4], aryDates[5], "TODAY"],
           datasets: [
@@ -265,18 +250,17 @@ const useIsMount = () => { //function to return, than first render or no
           ]
         }
       return state;
+    } 
+    function test(){
+    console.log(hoverTest())
     }
-  
-
     
-      
-      
     return (
-    <div className="toDoChart__wrapper">
+    <div onMouseEnter={test} className="toDoChart__wrapper">
  <div>
         {
           chartDataExist==true 
-          ?<Bar
+          ?<Bar 
           data={hoverTest}
           options={{
             title:{
