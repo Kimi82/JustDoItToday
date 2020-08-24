@@ -98,9 +98,9 @@ export default function ToDoList({user}) {
             </ul>
         
         <div className="toDoList__addTask">
-            <input type="text" value={newTaskValue} onChange={e => setTask(e.target.value)}></input>
-            <button onClick={addTask}>Add Task</button>
-    </div>
+            <input className="toDoList__input" type="text" value={newTaskValue} onChange={e => setTask(e.target.value)}></input>
+            <button className="toDoList__button" onClick={addTask}><b>ADD TASK</b></button>
+        </div>
     </div>
     </div>
     )

@@ -1,9 +1,34 @@
 .toDoList__wrapper{
-display: flex;
-flex-direction: column;
+    display: flex;
+    align-content: center;
+    flex-direction: column;   
+}
 
+.toDoList__list{
+    margin:25px 25px;
+    cursor: pointer;
 }
 
 .toDoList__item{
     color: green
+}
+.toDoList__button{
+    background-color: #AC3B61;
+	border: 1px solid #cf5d83;
+	display: inline-block;
+	cursor: pointer;
+	color: #EEE2DC;
+	font: 12px;
+	padding: 4px 14px;
+	text-decoration: none;
+}
+
+.toDoList__input{
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px black solid;
+    margin-right: 10px;
+    text-decoration: none;
 }

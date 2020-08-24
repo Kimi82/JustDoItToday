@@ -90,14 +90,8 @@ function App() {
  return (
   <div className="app">
  <header className="navigation__header">
-    <img
-      className="navigation__headerImage"
-      src="https://www.wykop.pl/cdn/c3201142/comment_jW2jz41f8eKiYgz7Lj78np48cwpD9oH7,w1200h627f.jpg"
-      alt="logo">
-    </img>
-    <h1>{user?.displayName}<br/>
-     time
-     </h1>
+    <h1>HERE WILL<br/> BE THE LOGO</h1>
+
     {user?.displayName ? <Button onClick={() =>{
        auth.signOut();
        window.location.reload(false)}}>Logout</Button> 
