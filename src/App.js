@@ -3,11 +3,13 @@ import './components/todo_list/ToDoList.css';
 import './Navigation.css';
 import ToDoList from './components/todo_list/ToDoList';
 import ToDoChart from './components/todo_chart/ToDoChart';
+import Journal from './components/journal/Journal';
 import React, {useState ,useEffect, useRef} from 'react';
 import { db, auth } from './firebase.js' 
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core'
+
 
 function getModalStyle() {
   const top = 50;
@@ -44,7 +46,8 @@ function App() {
   const [openSignIn, setOpenSignIn] = useState('')
   const [username, setUsername] = useState('');
 
- 
+  function timeout(delay: number) {
+  return new Promise( res => setTimeout(res, delay) );} //fake await function
 
   const today = new Date()
   const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0');  
@@ -61,19 +64,22 @@ function App() {
     }
   }, [user, username])
 
-  const signUp = (e) =>{
+  const signUp = async (e) =>{
     e.preventDefault();
     auth
     .createUserWithEmailAndPassword(email, password)
     .then((authUser) => {
-      window.location.reload();
       return authUser.user.updateProfile({
         displayName: username
       })
-    })
+    }
+    )
     .catch((error) => alert(error.message));
+    await timeout(2000);
+    //window.location.reload();
     setOpen(false)
-  }
+    }
+  
 
   const signIn = (e) => {
     
@@ -84,13 +90,10 @@ function App() {
     setOpenSignIn(false)
   }
 
-  
-
-
  return (
   <div className="app">
  <header className="navigation__header">
-    <h1>HERE WILL<br/> BE THE LOGO</h1>
+    <h1>HERE WILL<br/> BE THE LOGO!</h1>
 
     {user?.displayName ? <Button onClick={() =>{
        auth.signOut();
@@ -158,11 +161,15 @@ function App() {
  </header>
 
  <div className="app__toDo">
-
+ {  user ?
  <ToDoChart user={user}/>
+ :<h1>You need to login, to use the website</h1>}
+ { user ?
  <ToDoList user={user}/>
+ :<h1>: )</h1>} 
 
  </div>
+ <Journal/>
  </div>
 )
 

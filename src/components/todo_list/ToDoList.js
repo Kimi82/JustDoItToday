@@ -83,7 +83,7 @@ export default function ToDoList({user}) {
 
     
     return (
-    <div className="toDoList__wrapper">
+    <div className="toDoList__wrapper">{ user.displayName?
     <div className="toDoList__list">
             <ul>
             {tasks.map((task) => (
@@ -102,7 +102,7 @@ export default function ToDoList({user}) {
             <button className="toDoList__button" onClick={addTask}><b>ADD TASK</b></button>
         </div>
     </div>
-    </div>
+:<h1>Please refresh the page</h1>}</div>
     )
 
 

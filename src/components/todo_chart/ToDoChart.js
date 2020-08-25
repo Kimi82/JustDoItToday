@@ -257,7 +257,7 @@ const useIsMount = () => { //function to return, than first render or no
           
     
     return (
-    <div className="toDoChart__wrapper">
+    <div className="toDoChart__wrapper">{ user.displayName?
  <div>
         {
           chartDataExist==true 
@@ -276,6 +276,6 @@ const useIsMount = () => { //function to return, than first render or no
           }}
         />:<button className="toDoChart__button" onClick={hoverTest}><b>CLICK HERE TO OPEN CHART!</b></button>}
       </div>
-    </div>
+:<h1>Please refresh the page</h1>}</div>
     )
 }

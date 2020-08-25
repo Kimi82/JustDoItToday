@@ -6,8 +6,8 @@
 
 .navigation__header{
     background-color: #EEE2DC;
-    padding: 20px;
     border-bottom: 1px solid lightgray;
+    padding: 20px;
     object-fit: contain;
     display: flex;
     position: sticky;
