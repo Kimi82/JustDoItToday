@@ -19,4 +19,10 @@ The site is not finished, of course, I have a lot of new features planned and th
 
 However, I have made it available to the web because as I said, its basic function works and I use it as my tool to create it for lists.
 
+## TO DO LIST:
+  Fix async downloading data from firebase
+  Add mood tracking
+  Add "prodactivity journal"
+
+
 
