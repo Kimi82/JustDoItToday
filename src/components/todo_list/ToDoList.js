@@ -29,7 +29,8 @@ export default function ToDoList({user}) {
 
     
      useEffect(() => {  //function to download task from today.
-        if(user!=undefined){   
+        if(user!=undefined){
+            try{   
             db 
                 .collection(user.displayName)
                 .doc("ToDoList")
@@ -41,7 +42,7 @@ export default function ToDoList({user}) {
                         task: doc.data()
                         })));
                         }) 
-            } 
+            }catch{console.log("o nie ")}} 
        
     }, [user])
 

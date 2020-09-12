@@ -94,7 +94,8 @@ export default function ToDoList({user}) {
     }
 
   useEffect(() => {  //function to download task from today.
-    if(user!=undefined){   
+    if(user!=undefined){  
+      try{ 
         db 
             .collection(user.displayName)
             .doc("ToDoList")
@@ -106,7 +107,7 @@ export default function ToDoList({user}) {
                     task: doc.data()
                     })));
                     }) 
-        } 
+        }catch(error){console.log("noway")}} 
    
 }, [user])
 const dbDates = dates[1].reverse()
@@ -116,6 +117,7 @@ useEffect(() => {  //function to download task from today.
   if(user!=undefined){
     setChartDataExist(false) 
     for(let i=0; i<=dbDates.length-1; i++){
+      try{
       db 
           .collection(user.displayName)
           .doc("ToDoList")
@@ -126,7 +128,7 @@ useEffect(() => {  //function to download task from today.
               chartArray.push({id:doc.id, data: doc.data()})
               setChartData(chartArray)
               })));
-        })}}}, [tasks])  //need to change IT!!!
+        })}catch{console.log("no")}}}}, [tasks])  //need to change IT!!!
 
 
 

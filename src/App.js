@@ -46,44 +46,42 @@ function App() {
   const [openSignIn, setOpenSignIn] = useState('')
   const [username, setUsername] = useState('');
 
-  function timeout(delay: number) {
-  return new Promise( res => setTimeout(res, delay) );} //fake await function
+ 
 
   const today = new Date()
   const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0');  
 
+  useEffect(() => {
   
-  useEffect(() =>{
-    const unsubscribe = auth.onAuthStateChanged((authUser)=>{
-      if (authUser){
-        setUser(authUser);
-    }
-    })
-    return () =>{
-      unsubscribe();
-    }
-  }, [user, username])
+    (async function checkLogin() {
+      await auth.onAuthStateChanged((authUser)=>{ 
+        setUser( authUser);})
+    })();
+  }, [user, username]);
+
+  
 
   const signUp = async (e) =>{
     e.preventDefault();
-    auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((authUser) => {
-      return authUser.user.updateProfile({
-        displayName: username
-      })
-    }
-    )
-    .catch((error) => alert(error.message));
-    await timeout(2000);
-    //window.location.reload();
+    try{
+    await auth.createUserWithEmailAndPassword(email, password)
     setOpen(false)
+    window.location.reload();
+    console.log("refresh!")
+    return await auth.currentUser.updateProfile({
+      displayName: username
+    
+    })
+    
+     }
+    catch(error){
+      alert(error.message)
     }
-  
-
-  const signIn = (e) => {
     
 
+  }
+  
+  const signIn = (e) => {
     auth
     .signInWithEmailAndPassword(email, password)
     .catch((error) => alert(error.message))
@@ -161,33 +159,20 @@ function App() {
  </header>
 
  <div className="app__toDo">
- {  user ?
- <ToDoChart user={user}/>
- :<h1>You need to login, to use the website</h1>}
+ {user ?
+  <ToDoChart user={user}/>
+  :<h1>You need to login, to use the website</h1>}
  { user ?
  <ToDoList user={user}/>
  :<h1>: )</h1>} 
 
  </div>
- <Journal/>
+ <Journal user={user}/>
  </div>
 )
 
 
 }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 
 

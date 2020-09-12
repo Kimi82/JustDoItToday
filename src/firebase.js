@@ -1,3 +1,4 @@
+
 import firebase from "firebase";
 
 const firebaseApp = firebase.initializeApp ({
@@ -16,3 +17,18 @@ const firebaseApp = firebase.initializeApp ({
   const storage = firebase.storage();
   
   export {db, auth, storage};
+  
+//   login(email, password){
+//     return this.auth.signInWithEmailAndPassword(email, password)
+//   }
+//   logout(){
+//     return this.auth.signOut()
+//   }
+//   async register(name, email, password){
+//     await this.auth.createUserWithEmailAndPassword(email, password)
+//     return this.auth.currentUser.updateProfile({
+//       displayName: name
+//     })
+//   }
+// }
+
