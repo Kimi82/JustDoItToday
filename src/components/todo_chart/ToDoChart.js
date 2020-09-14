@@ -115,20 +115,23 @@ const chartArray = []
 
 useEffect(() => {  //function to download task from week.
   if(user!=undefined){
-    setChartDataExist(false) 
     for(let i=0; i<=dbDates.length-1; i++){
       try{
-      db 
+         db 
           .collection(user.displayName)
           .doc("ToDoList")
           .collection(dbDates[i]) //todayDate
           .orderBy("timestamp", "desc")
-          .onSnapshot((snapshot) =>{
-            ((snapshot.docs.map(doc => {
-              chartArray.push({id:doc.id, data: doc.data()})
-              setChartData(chartArray)
-              })));
-        })}catch{console.log("no")}}}}, [])  //need to change IT!!!
+          .get()
+          .then(snapshot =>{
+            ((snapshot.docs.map(async doc => {
+                  chartArray.push({id:doc.id, data: doc.data()})
+                  setChartData(chartArray)
+                  })));
+                  
+                })
+
+        }catch{console.log("no")}}}}, [])  //need to change IT!!!
 
 
 
@@ -256,6 +259,10 @@ const useIsMount = () => { //function to return, than first render or no
       return state;
     } 
     
+
+    setTimeout( () => {
+      setChartDataExist(true)
+    },2000)
           
     
     return (
@@ -276,7 +283,11 @@ const useIsMount = () => { //function to return, than first render or no
               position:'right'
             }
           }}
-        />:<button className="toDoChart__button" onClick={hoverTest}><b>CLICK HERE TO OPEN CHART!</b></button>}
+        />:<div className="loader">
+        <div className="loader-wheel"></div>
+        <div className="loader-text"></div>
+      </div>
+      }
       </div>
 :<h1>Please refresh the page</h1>}</div>
     )

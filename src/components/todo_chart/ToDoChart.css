@@ -16,3 +16,54 @@ width: 700px;
 	padding: 4px 14px;
 	text-decoration: none;
 }
+
+
+
+.loader {
+	width: 60px;
+	margin: 200px;
+  }
+  
+  .loader-wheel {
+	animation: spin 1s infinite linear;
+	border: 2px solid rgba(30, 30, 30, 0.5);
+	border-left: 4px solid whitesmoke;
+	border-radius: 50%;
+	height: 50px;
+	margin-bottom: 10px;
+	width: 50px;
+  }
+  
+  .loader-text {
+	color: whitesmoke;
+	font-family: arial, sans-serif;
+  }
+  
+  .loader-text:after {
+	content: 'Loading';
+	animation: load 2s linear infinite;
+  }
+  
+  @keyframes spin {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+  }
+  
+  @keyframes load {
+	0% {
+	  content: 'Loading';
+	}
+	33% {
+	  content: 'Loading.';
+	}
+	67% {
+	  content: 'Loading..';
+	}
+	100% {
+	  content: 'Loading...';
+	}
+  }
