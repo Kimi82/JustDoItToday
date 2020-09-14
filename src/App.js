@@ -67,7 +67,6 @@ function App() {
     await auth.createUserWithEmailAndPassword(email, password)
     setOpen(false)
     window.location.reload();
-    console.log("refresh!")
     return await auth.currentUser.updateProfile({
       displayName: username
     

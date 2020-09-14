@@ -109,11 +109,11 @@ export default function ToDoList({user}) {
                     }) 
         }catch(error){console.log("noway")}} 
    
-}, [user])
+}, [])
 const dbDates = dates[1].reverse()
-
 const chartArray = []
-useEffect(() => {  //function to download task from today.
+
+useEffect(() => {  //function to download task from week.
   if(user!=undefined){
     setChartDataExist(false) 
     for(let i=0; i<=dbDates.length-1; i++){
@@ -128,7 +128,7 @@ useEffect(() => {  //function to download task from today.
               chartArray.push({id:doc.id, data: doc.data()})
               setChartData(chartArray)
               })));
-        })}catch{console.log("no")}}}}, [tasks])  //need to change IT!!!
+        })}catch{console.log("no")}}}}, [])  //need to change IT!!!
 
 
 
