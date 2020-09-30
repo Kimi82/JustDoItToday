@@ -44,7 +44,7 @@ export default function ToDoList({user}) {
                         }) 
             }catch{console.log("o nie ")}} 
        
-    }, [user])
+    }, [])
 
 
     const useIsMount = () => { //function to return, than first render or no
@@ -91,18 +91,19 @@ export default function ToDoList({user}) {
                     <span> 
 
                     { task.task.isDone ?
-                        <div className="boxes" id={task.id} onClick={setAsDone}>
-                            <input  type="checkbox" id={task.id} checked="true" />
-                            <label  htmlFor={task.id} id={task.id}>{task.task.text}</label>
-                        </div>
+                    <div className="boxes" id={task.id} onClick={setAsDone} >
+                        <input type="checkbox" id={task.id} onClick={setAsDone} defaultChecked />
+                        <label id={task.id} htmlFor={task.id} onClick={setAsDone}>{task.task.text}</label> 
+                    </div>
                     :
-                        <div className="boxes" id={task.id} onClick={setAsDone}>
-                            <input type="checkbox" id={task.id}  />
-                            <label htmlFor={task.id} id={task.id}>{task.task.text}</label>
-                        </div>
+                    <div className="boxes" id={task.id} onClick={setAsDone} >
+                        <input type="checkbox" id={task.id} onClick={setAsDone} />
+                        <label id={task.id} htmlFor={task.id} onClick={setAsDone}>{task.task.text}</label> 
+                    </div>
 
                         } 
-
+                       
+                    
 
                         
                     </span>

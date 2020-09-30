@@ -37,7 +37,7 @@
 
 .boxes {
     margin: auto;
-    padding: 20px;
+    padding: 10px;
     
   }
   
@@ -48,7 +48,7 @@
     display: block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font: 19px/21px 'Open Sans', Arial, sans-serif;
     color: black;
     cursor: pointer;
@@ -74,7 +74,7 @@
     top: -5px;
     left: 5px;
     border-radius: 0;
-    border-color: greenyellow;
+    border-color: green;
     opacity: 1;
     border-top-color: transparent;
     border-left-color: transparent;
