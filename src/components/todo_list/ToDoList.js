@@ -77,8 +77,8 @@ export default function ToDoList({user}) {
         
 
     const setAsDone = (e) => {
-        db.collection(user.displayName).doc("ToDoList").collection(todayDate).doc(e.target.id)
-        .update({isDone: true})
+         db.collection(user.displayName).doc("ToDoList").collection(todayDate).doc(e.target.id)
+         .update({isDone: true})
     }
     
 
@@ -86,17 +86,30 @@ export default function ToDoList({user}) {
     return (
     <div className="toDoList__wrapper">{ user.displayName?
     <div className="toDoList__list">
-            <ul>
+             
             {tasks.map((task) => (
-                    <p> { task.task.isDone ?
-                        <li className="toDoList__item" value={task.task.text} id={task.id} onClick={setAsDone}>{task.task.text}</li>:
-                        <li value={task.task.text} id={task.id} onClick={setAsDone}>{task.task.text}</li> 
-                        }
-                    </p>
+                    <span> 
+
+                    { task.task.isDone ?
+                        <div className="boxes" id={task.id} onClick={setAsDone}>
+                            <input  type="checkbox" id={task.id} checked="true" />
+                            <label  htmlFor={task.id} id={task.id}>{task.task.text}</label>
+                        </div>
+                    :
+                        <div className="boxes" id={task.id} onClick={setAsDone}>
+                            <input type="checkbox" id={task.id}  />
+                            <label htmlFor={task.id} id={task.id}>{task.task.text}</label>
+                        </div>
+
+                        } 
+
+
+                        
+                    </span>
                 )
                 
                 )}
-            </ul>
+            
         
         <div className="toDoList__addTask">
             <input className="toDoList__input" type="text" value={newTaskValue} onChange={e => setTask(e.target.value)}></input>

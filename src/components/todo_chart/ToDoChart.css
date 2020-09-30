@@ -1,10 +1,7 @@
 .toDoChart__wrapper{
 height: 500px;
 width: 700px;
-
 }
-
-
 .toDoChart__button{
     margin:20% 20%;
     background-color: #AC3B61;
@@ -16,8 +13,6 @@ width: 700px;
 	padding: 4px 14px;
 	text-decoration: none;
 }
-
-
 
 .loader {
 	width: 60px;
