@@ -90,7 +90,7 @@ function App() {
  return (
   <div className="app">
  <header className="navigation__header">
-    <h1>HERE WILL<br/> BE THE LOGO!</h1>
+    <h1>Hi, {user?.displayName}<br/> Have a great day!</h1>
 
     {user?.displayName ? <Button onClick={() =>{
        auth.signOut();

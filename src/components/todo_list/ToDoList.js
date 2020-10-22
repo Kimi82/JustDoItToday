@@ -62,7 +62,7 @@ export default function ToDoList({user}) {
           if (!isMount && tasks.length>=1) {
             let howManyTaskIsDone = 0;
             for(let i =0; i<=tasks.length-1; i++){
-                 if(tasks[i].task.isDone == true){
+                 if(tasks[i].task.isDone === true){
                     howManyTaskIsDone+=1
                     setTaskDone(howManyTaskIsDone);
                     }
