@@ -4,12 +4,23 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { db } from '../../firebase.js'
 import firebase from "firebase"
-import { getNodeText } from '@testing-library/react';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 export default function Journal({user}) {
 
   const [noteValue, setNoteValue] = useState('');
+  const [noteAlert, setNoteAlert] = useState('');
+  const [open, setOpen] = useState(false);
+
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const addNote = (e) => {  //function to add note 
     const today = new Date()
@@ -26,9 +37,12 @@ export default function Journal({user}) {
   const dbDate = String(date.getDate()).padStart(2, '0') + "_" + String(date.getMonth() + 1).padStart(2, '0'); 
     const task = db.collection(user.displayName).doc("notes").collection(dbDate); 
     let taskData = await task.get()
+ 
+    if(typeof taskData.docs[0] == 'object'){
     taskData = taskData.docs[0].data().text
-    console.log(taskData)
-    console.log("first?")    
+    setNoteAlert(taskData)
+    setOpen(true)
+    }
 }
 
 
@@ -39,15 +53,38 @@ export default function Journal({user}) {
   <div className="journal__inputBox">
   
 	  <textarea className="journal__input" type="text" placeholder="My day was so productive..." value={noteValue} onChange={e => setNoteValue(e.target.value)}/>
+    <div className="journal__inputButtonWrapper">
+    <div className="journal__inputButtonGood">🙂</div>
+    <div className="journal__inputButtonNormal">😐</div>
+    <div className="journal__inputButtonBad">🙁</div>
+    </div>
     <button className="journal__inputButton" onClick={addNote}><b>ADD NOTE</b></button>
   </div>
         <div className="journal__chart">
           {
     
       <div>
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Note: "}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {noteAlert}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
         <Calendar
           value={new Date()}
-          onChange={(value, event) => getNote(value)}
+          onChange={(value) => getNote(value)}
         />
       </div>
     

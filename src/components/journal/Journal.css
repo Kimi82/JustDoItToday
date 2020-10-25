@@ -12,7 +12,7 @@
 .journal__inputBox{
     margin-left: 40px;
     width: 40%;
-    height: 250px;
+    height: 260px;
     border: 2px white solid;
     border-radius: 10px;
     background-color: #EEE2DC;
@@ -20,7 +20,7 @@
 
 .journal__input{
     width: 98%;
-    height: 70%;
+    height: 60%;
     background-color: #EEE2DC;
     border: none;
 }
@@ -30,17 +30,39 @@
 
 .journal__inputButton{
     width: 100%;
-    height: 30%;
+    height: 20%;
     border-bottom:2px white solid;
     border-top:none;
     border-left: none;
     border-right: none;
     border-radius: 10px;
     color: white;
-    background: #AC3B61;    
+    background: #AC3B61;
+    cursor: pointer;   
 }
 
 .journal__chart .react-calendar{
     width: 100%;
     margin-left: 10%;
+}
+.journal__inputButtonWrapper{
+    display: flex;
+    justify-content: space-between; 
+
+}
+.journal__inputButtonBad, .journal__inputButtonNormal, .journal__inputButtonGood{
+    width: 100%;
+    height: 50px;
+    font-size: 42px;
+    cursor: pointer;
+}
+.journal__inputButtonBad{
+    background-color: red;
+} 
+
+.journal__inputButtonNormal{
+    background-color: royalblue;
+}
+.journal__inputButtonGood{
+    background-color: seagreen;
 }

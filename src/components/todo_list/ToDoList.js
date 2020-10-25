@@ -23,10 +23,6 @@ export default function ToDoList({user}) {
          setTask('');
      }
 
-
-
-     
-
     
      useEffect(() => {  //function to download task from today.
         if(user!=undefined){
