@@ -41,6 +41,19 @@
     cursor: pointer;   
 }
 
+.journal__inputButtonDisable{
+    width: 100%;
+    height: 20%;
+    border-bottom:2px white solid;
+    border-top:none;
+    border-left: none;
+    border-right: none;
+    border-radius: 10px;
+    color: white;
+    background: #3a222a;
+    cursor: no-drop;   
+}
+
 .journal__chart .react-calendar{
     width: 100%;
     margin-left: 10%;
@@ -55,14 +68,31 @@
     height: 50px;
     font-size: 42px;
     cursor: pointer;
+    border: none;
+    outline: 0;
 }
 .journal__inputButtonBad{
     background-color: red;
+    border-radius: 10px;
 } 
 
 .journal__inputButtonNormal{
-    background-color: royalblue;
+    background-color: rgb(28, 59, 151);
+    border-radius: 10px;
 }
 .journal__inputButtonGood{
     background-color: seagreen;
+    border-radius: 10px;
 }
+
+.journal__inputButtonGood:hover{
+    background-color: rgb(55, 233, 132);   
+}
+
+.journal__inputButtonNormal:hover{
+    background-color: rgb(78, 119, 241);
+}
+
+.journal__inputButtonBad:hover{
+    background-color: rgb(253, 109, 109);
+} 

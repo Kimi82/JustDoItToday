@@ -91,11 +91,11 @@ function App() {
   <div className="app">
  <header className="navigation__header">
     <h1>Hi, {user?.displayName}<br/> Have a great day!</h1>
-
-    {user?.displayName ? <Button onClick={() =>{
+    {user?.displayName ? 
+    <Button onClick={() =>{
        auth.signOut();
-       window.location.reload(false)}}>Logout</Button> 
-      : 
+       window.location.reload(false)}}>Logout</Button>
+       : 
       <div className="navigation__loginWrapper">
       <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
       <Button onClick={() => setOpen(true)}>Sign UP</Button>
@@ -154,7 +154,7 @@ function App() {
   </Modal> 
 
   
-
+      
  </header>
 
  <div className="app__toDo">
