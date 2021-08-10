@@ -1,6 +1,7 @@
 .toDoChart__wrapper{
-height: 500px;
-width: 700px;
+height: 45vh;
+width: 80%;
+margin-left: 3%;
 }
 .toDoChart__button{
     margin:20% 20%;
@@ -31,7 +32,7 @@ width: 700px;
   
   .loader-text {
 	color: whitesmoke;
-	font-family: arial, sans-serif;
+
   }
   
   .loader-text:after {
@@ -61,4 +62,11 @@ width: 700px;
 	100% {
 	  content: 'Loading...';
 	}
+  }
+
+
+  canvas{
+	  position: relative;
+	  max-height: 100%!important;
+	  max-width: 100%!important;
   }

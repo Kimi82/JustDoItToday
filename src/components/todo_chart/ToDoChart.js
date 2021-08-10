@@ -29,7 +29,6 @@ export default function ToDoList({user}) {
 
   useEffect(() =>{
     setPercent(doneTasks/tasks.length*100)
-   
    },
    [tasks, doneTasks])
 
@@ -106,6 +105,7 @@ export default function ToDoList({user}) {
                     id: doc.id,
                     task: doc.data()
                     })));
+                    setChartDataExist(true)
                     }) 
         }catch(error){console.log("noway")}} 
    
@@ -116,22 +116,27 @@ const chartArray = []
 useEffect(() => {  //function to download task from week.
   if(user!=undefined){
     for(let i=0; i<=dbDates.length-1; i++){
-      try{
-         db 
+      //try{
+      const getTask = async () =>{
+        await db 
           .collection(user.displayName)
           .doc("ToDoList")
           .collection(dbDates[i]) //todayDate
           .orderBy("timestamp", "desc")
           .get()
-          .then(snapshot =>{
-            ((snapshot.docs.map(async doc => {
+          .then(async snapshot=>{
+            ((snapshot.docs.map( doc => {
                   chartArray.push({id:doc.id, data: doc.data()})
                   setChartData(chartArray)
                   })));
                   
-                })
+                })}
+            getTask()
 
-        }catch{console.log("no")}}}}, [])  //need to change IT!!!
+        }
+        //catch{console.log("no")}}
+      }
+      }, [])  //need to change IT!!!
 
 
 
@@ -260,16 +265,14 @@ const useIsMount = () => { //function to return, than first render or no
     } 
     
 
-    setTimeout( () => {
-      setChartDataExist(true)
-    },2000)
+
           
     
     return (
     <div className="toDoChart__wrapper">{ user.displayName?
- <div>
+      <>
         {
-          chartDataExist==true 
+          chartDataExist===true 
           ?<Bar 
           data={hoverTest}
           options={{
@@ -288,7 +291,7 @@ const useIsMount = () => { //function to return, than first render or no
         <div className="loader-text"></div>
       </div>
       }
-      </div>
-:<h1>Please refresh the page</h1>}</div>
+  </>
+      :<h1>Please refresh the page</h1>}</div>
     )
 }

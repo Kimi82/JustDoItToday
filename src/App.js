@@ -93,10 +93,10 @@ function App() {
  return (
   <div className="app">
 
- <header className="navigation__header">
+ <header className="navigation">
    
-    <h1>Hi, {user?.displayName}<br/> Have a great day!</h1>
-    <div>
+    {user && <h1 className="navigation__logo">Hi, {user?.displayName}<br/> Have a great day!</h1>}
+    <div className="navigation__login">
     
     {user?.displayName ? 
     <Button onClick={() =>{
@@ -176,7 +176,8 @@ function App() {
  :<h1>: )</h1>} 
 
  </div>
- <Journal user={user}/>
+ { user &&
+ <Journal user={user}/>}
  </div>
 )
 

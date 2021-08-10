@@ -63,7 +63,7 @@ if(mood.length===0){
         
   <div className="journal__inputBox">
   
-	  <textarea className="journal__input" type="text" placeholder="My day was so productive..." value={noteValue} onChange={e => setNoteValue(e.target.value)}/>
+	  <textarea className="journal__input" type="text" placeholder="Describe your today mood" value={noteValue} onChange={e => setNoteValue(e.target.value)}/>
     <div className="journal__inputButtonWrapper">
     <button className="journal__inputButtonGood" value={'🙂'} onClick={handleMood}>🙂</button>
     <button className="journal__inputButtonNormal" value={'😐'} onClick={handleMood}>😐</button>
@@ -77,7 +77,7 @@ if(mood.length===0){
         <div className="journal__chart">
           {
     
-      <div>
+  <>
         <Dialog
         open={open}
         onClose={handleClose}
@@ -100,8 +100,8 @@ if(mood.length===0){
           value={new Date()}
           onChange={(value) => getNote(value)}
         />
-      </div>
-    
+
+    </>
   }
 
         </div>

@@ -10,8 +10,8 @@
 }
 
 .journal__inputBox{
-    margin-left: 40px;
-    width: 40%;
+    margin-left: 3%;
+    width: 40vw;
     height: 260px;
     border: 2px white solid;
     border-radius: 10px;
@@ -55,7 +55,7 @@
 }
 
 .journal__chart .react-calendar{
-    width: 100%;
+    width: 50vw;
     margin-left: 10%;
 }
 .journal__inputButtonWrapper{
