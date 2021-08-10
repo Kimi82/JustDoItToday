@@ -12,15 +12,18 @@ export default function ToDoList({user}) {
     const todayDate = String(today.getDate()).padStart(2, '0') + "_" + String(today.getMonth() + 1).padStart(2, '0');
 
 
-
     const addTask = (e) => {  //function to add task 
-         e.preventDefault();
+        if(newTaskValue.length >= 3){ 
+        e.preventDefault();
          db.collection(user.displayName).doc("ToDoList").collection(todayDate).add({
              text: newTaskValue,
              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
              isDone: false
          })
-         setTask('');
+         setTask('');}
+         else{
+             alert("New task must have at least 3 signs")
+         }
      }
 
     
@@ -38,7 +41,8 @@ export default function ToDoList({user}) {
                         task: doc.data()
                         })));
                         }) 
-            }catch{console.log("o nie ")}} 
+            }
+            catch{console.log("o nie ")}} 
        
     }, [])
 
@@ -87,12 +91,12 @@ export default function ToDoList({user}) {
                     <span> 
 
                     { task.task.isDone ?
-                    <div className="boxes" id={task.id} onClick={setAsDone} >
+                    <div className="boxes" key={task.id} id={task.id} onClick={setAsDone} >
                         <input type="checkbox" id={task.id} onClick={setAsDone} defaultChecked />
                         <label id={task.id} htmlFor={task.id} onClick={setAsDone}>{task.task.text}</label> 
                     </div>
                     :
-                    <div className="boxes" id={task.id} onClick={setAsDone} >
+                    <div className="boxes" key={task.id} id={task.id} onClick={setAsDone} >
                         <input type="checkbox" id={task.id} onClick={setAsDone} />
                         <label id={task.id} htmlFor={task.id} onClick={setAsDone}>{task.task.text}</label> 
                     </div>

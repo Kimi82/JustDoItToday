@@ -87,21 +87,31 @@ function App() {
     setOpenSignIn(false)
   }
 
+
+
+
  return (
   <div className="app">
+
  <header className="navigation__header">
+   
     <h1>Hi, {user?.displayName}<br/> Have a great day!</h1>
+    <div>
+    
     {user?.displayName ? 
     <Button onClick={() =>{
        auth.signOut();
        window.location.reload(false)}}>Logout</Button>
        : 
       <div className="navigation__loginWrapper">
+        
       <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
       <Button onClick={() => setOpen(true)}>Sign UP</Button>
       </div>
       }
-
+      
+      
+  </div>
   <Modal
     open={open}
     onClose={() => setOpen(false)}>
