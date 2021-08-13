@@ -13,7 +13,7 @@ React.JS, CSS, firebase, and a little bit of material-ui and react-calendar
 
 ## SCREENSHOOTS
 1) Typical view
-![adding new idea](https://zapodaj.net/57b36cd19c2a7.png.html)
+![adding new idea](https://zapodaj.net/images/57b36cd19c2a7.png)
 
 2) Note about mood, after click in calendar
-![2](https://zapodaj.net/77f3ad0be0fa2.png.html)
+![2](https://zapodaj.net/images/77f3ad0be0fa2.png)
