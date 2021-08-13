@@ -1,25 +1,19 @@
+# What is it?
+This website is more than typical to-do list. You can add your task, mood and quick note about your day and also track it in calendar and graph
 
-## Website is available here:
+# If you want to test it...
+I hosted this site, you can see it link below
+https://justdoittoday-37593.web.app
+Also, i created two account, with some data:
+1) email: jon@doe.eu password: jon1221
+<br/> of course, just if you want, you can create your own account! :)
 
-https://justdoittoday-37593.web.app/
+## Technology i used
+React.JS, CSS, firebase, and a little bit of material-ui and react-calendar
 
-Sometimes, you can see blank page, after registration, then please refresh page. I'm currently working on it :)
+## SCREENSHOOTS
+1) Typical view
+![adding new idea](https://zapodaj.net/57b36cd19c2a7.png.html)
 
-### WHAT/WHY 
-I learn programming on my own at home, I am recording this video to show you the site I am currently working on and, better still, use it to make my life more productive.
-
-Bello you can see how the site looks when we use it for some time (data in chart).
-
-![photo](https://zapodaj.net/images/0949b7b23a3e7.png)
-
-
-But here is a graph that shows us how productive we were. I calculate the percentage of completed tasks here. It shows things for six days in the past
-
-The site is not finished, of course, I have a lot of new features planned and the refactor of the whole application, because I learned a lot while creating it.
-
-However, I have made it available to the web because as I said, its basic function works and I use it as my tool to create it for lists.
-
-### NEW FUNCTIONALITY
-Finally, you can track your mood, and notes about mood :)
-![photo](https://zapodaj.net/images/cca4c75ffc48f.png)
-![photo](https://zapodaj.net/images/923f2f8d0cfe3.png)
+2) Note about mood, after click in calendar
+![2](https://zapodaj.net/77f3ad0be0fa2.png.html)
